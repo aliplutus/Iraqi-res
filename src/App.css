@@ -90,5 +90,10 @@ cursor: auto;
   position: absolute;
   height: 500px;
   width: 500px;
-  z-index: 101;
+  z-index: 6;
+}
+input{
+position: relative;
+z-index: 7;
+left: 327px;
 }

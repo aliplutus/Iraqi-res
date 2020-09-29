@@ -11,8 +11,7 @@ function App() {
 
   function handleChange(e) {
     setstate(e.target.value)
-    console.log(image.current.offsetWidth > image.current.offsetHeight)
-    image.current.offsetWidth > image.current.offsetHeight ? setStyles({ height: `${image.current.offsetWidth}px`, width: `${image.current.offsetHeight}px` }) : setStyles({ height: '500px' })
+    image.current.offsetWidth > image.current.offsetHeight ? setStyles({ height: `${image.current.width}px`, width: `${image.current.height}px` }) : setStyles({ height: '500px' })
   }
   return (
     <div

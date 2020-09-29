@@ -75,7 +75,7 @@ cursor: auto;
   top: 190px;
   right: 20px;
   width: 370px;
-  z-index: 5;
+  z-index: 10;
   /* text-size-adjust: inherit; */
 }
 .field{

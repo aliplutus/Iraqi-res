@@ -71,9 +71,12 @@ cursor: auto;
   color: white;
 }
 .title-containter{
-  position: absolute;
+  position: relative;
+  top: 190px;
+  right: 20px;
   width: 370px;
   z-index: 5;
+  /* text-size-adjust: inherit; */
 }
 .field{
   position: absolute;
@@ -93,7 +96,7 @@ cursor: auto;
   z-index: 6;
 }
 input{
-position: relative;
+position: absolute;
 z-index: 7;
-left: 327px;
+left: 900px;
 }

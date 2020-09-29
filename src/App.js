@@ -1,24 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useRef } from 'react';
+import TheTitleField from './SVGs/TheTitleField.svg'
 import './App.css';
 
 function App() {
+  const ref = useRef()
+
+  useEffect(() => {
+
+  }, [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div onMouseOver={() => ref.current.focus()} className="App">
+      <div className='outline'></div>
+      <div
+        className='container'>
+        <div
+          className='title-containter'>
+          <div
+            placeholder='add text here'
+            className='title'
+            dir='rtl'
+            ref={ref}
+            contentEditable />
+        </div>
+        <img className='field' src={TheTitleField} alt={TheTitleField} />
+        <img className='image' src='https://arbordayblog.org/wp-content/uploads/2018/06/oak-tree-sunset-iStock-477164218.jpg' />
+      </div>
     </div>
   );
 }

@@ -1,7 +1,10 @@
+body{
+  height: 1000px;
+}
 .App {
   text-align: center;
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -72,11 +75,11 @@ cursor: auto;
 }
 .title-containter{
   position: relative;
-  top: 190px;
-  right: 20px;
-  width: 370px;
+  /* top: 211px; */
+  /* right: 20px; */
+  /* width: 370px; */
   z-index: 10;
-  /* text-size-adjust: inherit; */
+/* line-height: 122%; */
 }
 .field{
   position: absolute;
@@ -96,7 +99,6 @@ cursor: auto;
   z-index: 6;
 }
 input{
-position: absolute;
-z-index: 7;
-left: 900px;
+padding: 5px;
+margin: 20px;
 }

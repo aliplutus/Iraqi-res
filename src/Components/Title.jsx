@@ -4,11 +4,14 @@ import { Resizable, ResizableBox } from "react-resizable";
 import { Rnd } from 'react-rnd';
 
 
-function Title(ref, setOver, setLong, tooLong) {
+function Title(ref, setOver, setLong, tooLong, unsplash, setimages, handleChange) {
       const [state, setstate] = useState({})
       const [isover, setIsOver] = useState(false)
       function handlKeyUP(e) {
-            console.log(state)
+            handleChange()
+            const response = unsplash.get("/search/photos", {
+                  params: { query: ref.current.innerText }
+            }).then(response => setimages(response.data.results[0].urls.regular))
             if (e.target.innerText.length > 69) {
                   setLong(true)
                   setstate({ right: '0px', width: '500px !important', background: 'linear-gradient(90deg, rgba(202,51,39,1) 0%, rgba(11,15,28,1) 100%)', borderRadius: '10px', width: ' 100 %' })
@@ -34,6 +37,7 @@ function Title(ref, setOver, setLong, tooLong) {
                         <Textfit
                               mode="single">
                               <div
+
                                     onKeyUp={handlKeyUP}
                                     ref={ref}
                                     placeholder='add text here'

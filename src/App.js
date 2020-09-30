@@ -2,20 +2,28 @@ import React, { useRef, useState } from 'react';
 import TheTitleField from './SVGs/TheTitleField.svg'
 import './App.css';
 import Title from './Components/Title';
-import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
-import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import { exportComponentAsJPEG, exportComponentAsPDF, exportComponentAsPNG } from "react-component-export-image";
-import { Rnd } from 'react-rnd';
 import posterLogo from './SVGs/posterLogo.png'
+import axios from "axios";
+import Postion from './Components/Postion'
+
+const unsplash = axios.create({
+  baseURL: "https://api.unsplash.com",
+  headers: {
+    Authorization:
+      "Client-ID ba7a5f05cbacfadc407c3ec3bf480ffacf13db55806dc883b225795b95080d38"
+  }
+})
+
 
 
 function App() {
   const box = useRef()
   const ref = useRef()
   const image = useRef()
-  const [state, setstate] = useState('https://arbordayblog.org/wp-content/uploads/2018/06/oak-tree-sunset-iStock-477164218.jpg')
+  const [images, setimages] = useState('https://arbordayblog.org/wp-content/uploads/2018/06/oak-tree-sunset-iStock-477164218.jpg')
   const [styles, setStyles] = useState({})
   const [isOver, setOver] = useState(false)
   const [tooLong, setLong] = useState(false)
@@ -25,12 +33,15 @@ function App() {
     if (h) { setStyles({ height: `${image.current.width}px`, width: `${image.current.height}px` }) }
     if (!h) { setStyles({ height: '500px' }) }
     setH(image.current.height > image.current.width)
+    console.log(h)
   }
   function handlDrag(e) {
     if (h) setStyles({ left: e.pageX - image.current.width / 2 })
     if (!h) setStyles(pre => {
       return { ...pre, top: e.pageY - image.current.height / 2 }
     })
+
+
 
 
   }
@@ -44,24 +55,13 @@ function App() {
         className="App">
         <div className='outline'></div>
         <div ref={box} className='container'>
-          {Title(ref, setOver, setLong, tooLong)}
+          {Title(ref, setOver, setLong, tooLong, unsplash, setimages, handleChange)}
+          {Postion(handlDrag, isOver)}
           {!tooLong && <img className='field' src={TheTitleField} alt={TheTitleField} />}
           {tooLong && <img className='iraq-res-logo' src={posterLogo} alt={posterLogo} />}
 
-          <div style={{ zIndex: '11', position: 'relative', transform: `scale(${isOver ? 1 : 0})` }} className=''>
-            <Rnd
-              handle=".handle"
-              position={null}
-              grid={[25, 25]}
-              scale={1}
-              onDrag={handlDrag}
-            >
-              <IconButton style={{ backgroundColor: 'white', color: 'tomato' }} variant="contained" color="default" className='handle' >
-                <DragIndicatorIcon />
-              </IconButton>
-            </Rnd>
-          </div>
-          <img ref={image} style={styles} className='image' src={state} alt='https://arbordayblog.org/wp-content/uploads/2018/06/oak-tree-sunset-iStock-477164218.jpg' />
+
+          <img ref={image} style={styles} className='image' src={images} alt='https://arbordayblog.org/wp-content/uploads/2018/06/oak-tree-sunset-iStock-477164218.jpg' />
         </div>
       </div>
       <input onChange={handleChange} placeholder='add image url here.' />

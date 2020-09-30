@@ -4,18 +4,10 @@ import './App.css';
 import Title from './Components/Title';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
-import { exportComponentAsJPEG, exportComponentAsPDF, exportComponentAsPNG } from "react-component-export-image";
+import { exportComponentAsJPEG } from "react-component-export-image";
 import posterLogo from './SVGs/posterLogo.png'
-import axios from "axios";
 import Postion from './Components/Postion'
-
-const unsplash = axios.create({
-  baseURL: "https://api.unsplash.com",
-  headers: {
-    Authorization:
-      "Client-ID ba7a5f05cbacfadc407c3ec3bf480ffacf13db55806dc883b225795b95080d38"
-  }
-})
+import Gallary from './Components/Gallary';
 
 
 
@@ -23,17 +15,18 @@ function App() {
   const box = useRef()
   const ref = useRef()
   const image = useRef()
+  const [Gal, setGal] = useState([])
   const [images, setimages] = useState('https://arbordayblog.org/wp-content/uploads/2018/06/oak-tree-sunset-iStock-477164218.jpg')
   const [styles, setStyles] = useState({})
   const [isOver, setOver] = useState(false)
   const [tooLong, setLong] = useState(false)
   const [h, setH] = useState(true)
   function handleChange(e) {
-    console.log(styles)
+    // console.log(styles)
     if (h) { setStyles({ height: `${image.current.width}px`, width: `${image.current.height}px` }) }
     if (!h) { setStyles({ height: '500px' }) }
     setH(image.current.height > image.current.width)
-    console.log(h)
+    // console.log(h)
   }
   function handlDrag(e) {
     if (h) setStyles({ left: e.pageX - image.current.width / 2 })
@@ -42,31 +35,27 @@ function App() {
     })
 
 
-
-
   }
   return (
 
     <div >
-      <div
 
+      <div
         onMouseLeave={() => setOver(false)} onMouseOverCapture={() => setOver(true)}
         onMouseOver={() => ref.current.focus()}
         className="App">
         <div className='outline'></div>
         <div ref={box} className='container'>
-          {Title(ref, setOver, setLong, tooLong, unsplash, setimages, handleChange)}
+          {Title(ref, setOver, setLong, tooLong, setimages, handleChange, setGal)}
           {Postion(handlDrag, isOver)}
           {!tooLong && <img className='field' src={TheTitleField} alt={TheTitleField} />}
           {tooLong && <img className='iraq-res-logo' src={posterLogo} alt={posterLogo} />}
-
-
           <img ref={image} style={styles} className='image' src={images} alt='https://arbordayblog.org/wp-content/uploads/2018/06/oak-tree-sunset-iStock-477164218.jpg' />
         </div>
       </div>
+      {Gallary(setimages, Gal, handleChange)}
       <input onChange={handleChange} placeholder='add image url here.' />
       <Button
-        style={{ zIndex: '13' }}
         onClick={() => exportComponentAsJPEG(box)}
         variant="contained"
         color="primary"
@@ -75,6 +64,7 @@ function App() {
       >
         Export as JPEG
       </Button>
+
     </div>
 
   );

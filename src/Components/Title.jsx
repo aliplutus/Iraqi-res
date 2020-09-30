@@ -2,19 +2,37 @@ import React, { useState } from 'react'
 import { Textfit } from 'react-textfit';
 import { Resizable, ResizableBox } from "react-resizable";
 import { Rnd } from 'react-rnd';
+import axios from "axios";
 
 
-function Title(ref, setOver, setLong, tooLong, unsplash, setimages, handleChange) {
+
+const unsplash = axios.create({
+      baseURL: "https://api.unsplash.com",
+      headers: {
+            Authorization:
+                  "Client-ID ba7a5f05cbacfadc407c3ec3bf480ffacf13db55806dc883b225795b95080d38"
+      }
+})
+
+
+function Title(ref, setOver, setLong, tooLong, setimages, handleChange, setGal) {
       const [state, setstate] = useState({})
       const [isover, setIsOver] = useState(false)
+      // const [loading, setLoading] = useState()
+      // console.log(loading)
       function handlKeyUP(e) {
             handleChange()
-            const response = unsplash.get("/search/photos", {
-                  params: { query: ref.current.innerText }
-            }).then(response => setimages(response.data.results[0].urls.regular))
+            unsplash.get("/search/photos", {
+                  params: { query: ref.current.innerText },
+                  // onDownloadProgress: function (progressEvent) { setLoading(progressEvent.timeStamp) }
+            }).then(response => {
+
+                  setimages(response.data.results[0].urls.regular)
+                  setGal(response.data.results)
+            })
             if (e.target.innerText.length > 69) {
                   setLong(true)
-                  setstate({ right: '0px', width: '500px !important', background: 'linear-gradient(90deg, rgba(202,51,39,1) 0%, rgba(11,15,28,1) 100%)', borderRadius: '10px', width: ' 100 %' })
+                  setstate({ right: '0px', width: '500px', background: 'linear-gradient(90deg, rgba(202,51,39,1) 0%, rgba(11,15,28,1) 100%)', borderRadius: '10px', width: ' 100 %' })
             }
             if (e.target.innerText.length < 69) {
                   setLong(false)
@@ -37,7 +55,6 @@ function Title(ref, setOver, setLong, tooLong, unsplash, setimages, handleChange
                         <Textfit
                               mode="single">
                               <div
-
                                     onKeyUp={handlKeyUP}
                                     ref={ref}
                                     placeholder='add text here'

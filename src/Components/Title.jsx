@@ -15,7 +15,7 @@ const unsplash = axios.create({
 })
 
 
-function Title(ref, setOver, setLong, tooLong, setimages, handleChange, setGal) {
+function Title(ref, setOver, setLong, tooLong, setimages, setGal) {
       const [state, setstate] = useState({ width: '300px' })
       const [isover, setIsOver] = useState(false)
       const [styles, setStyles] = useState({
@@ -26,7 +26,6 @@ function Title(ref, setOver, setLong, tooLong, setimages, handleChange, setGal) 
       })
 
       function handlKeyUP(e) {
-            handleChange()
             unsplash.get("/search/photos", {
                   params: { query: ref.current.innerText },
                   // onDownloadProgress: function (progressEvent) { setLoading(progressEvent.timeStamp) }

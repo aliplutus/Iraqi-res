@@ -1,9 +1,8 @@
 import React from 'react'
 import Button from '@material-ui/core/Button';
 
-function Gallary(setimages, Gal, handleChange) {
+function Gallary(setimages, Gal) {
       function handlcick(image) {
-            handleChange()
             setimages({ link: image.urls.regular, width: image.width, height: image.height })
       }
       return (

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import TheTitleField from './SVGs/TheTitleField.svg'
 import './App.css';
 import Title from './Components/Title';
@@ -17,21 +17,24 @@ function App() {
   const image = useRef()
   const [Gal, setGal] = useState([])
   const [images, setimages] = useState({ link: 'https://arbordayblog.org/wp-content/uploads/2018/06/oak-tree-sunset-iStock-477164218.jpg' })
-  const [styles, setStyles] = useState({ height: '500px' })
+  const [styles, setStyles] = useState({ height: '500px', width: 'auto' })
   const [isOver, setOver] = useState(false)
   const [tooLong, setLong] = useState(false)
-  const [h, setH] = useState(true)
-  function handleChange(e) {
-    setH(images.height > images.width)
-    // images.height > images.width ? setStyles({ height: `${image.current.width}px`, width: `${image.current.height}px` })
-    //   : setStyles({ height: '500px' })
-  }
-  function handlDrag(e) {
-    if (h) setStyles(pre => {
-      return { ...pre, left: e.pageX - image.current.width / 2 }
+  useEffect(() => {
+    if (image.current.height < image.current.width) setStyles(pre => {
+      return { height: '500px', width: 'auto' }
     })
-    else if (!h) setStyles(pre => {
-      return { ...pre, top: e.pageY - image.current.height / 2 }
+    else if (image.current.height > image.current.width) setStyles(pre => {
+      return { height: 'auto', width: '500px' }
+    })
+
+  }, [images])
+  function handlDrag(e) {
+    if (image.current.height < image.current.width) setStyles(pre => {
+      return { left: e.pageX - image.current.width / 2, height: '500px', width: 'auto' }
+    })
+    else if (image.current.height > image.current.width) setStyles(pre => {
+      return { top: e.pageY - image.current.height / 2, height: 'auto', width: '500px' }
     })
   }
   return (
@@ -44,15 +47,15 @@ function App() {
         className="App">
         <div className='outline'></div>
         <div ref={box} className='container'>
-          {Title(ref, setOver, setLong, tooLong, setimages, handleChange, setGal)}
+          {Title(ref, setOver, setLong, tooLong, setimages, setGal)}
           {Postion(handlDrag, isOver)}
           {!tooLong && <img className='field' src={TheTitleField} alt={TheTitleField} />}
           {tooLong && <img className='iraq-res-logo' src={posterLogo} alt={posterLogo} />}
-          <img ref={image} style={styles} className='image' src={images.link} alt='https://arbordayblog.org/wp-content/uploads/2018/06/oak-tree-sunset-iStock-477164218.jpg' />
+          <img ref={image} style={{ ...styles }} className='image' src={images.link} alt='https://arbordayblog.org/wp-content/uploads/2018/06/oak-tree-sunset-iStock-477164218.jpg' />
         </div>
       </div>
-      {Gallary(setimages, Gal, handleChange)}
-      <input onChange={handleChange} placeholder='add image url here.' />
+      {Gallary(setimages, Gal)}
+      <input placeholder='add image url here.' />
       <Button
         onClick={() => exportComponentAsJPEG(box)}
         variant="contained"

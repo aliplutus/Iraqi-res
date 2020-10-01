@@ -1,6 +1,8 @@
 body{
   height: 1000px;
+  background-color: #282c34;
 }
+
 .App {
   text-align: center;
   background-color: #282c34;
@@ -97,14 +99,20 @@ cursor: auto;
   width: 500px;
   z-index: 6;
 }
-input{
-padding: 5px;
-margin: 20px;
-}
+
 .iraq-res-logo{
 z-index: 10;
 position: relative;
 top: -205px;
 left: 205px;
 width: 88px;
+}
+.work{
+  border-top: 0.1px solid gray;
+  padding: 1%;
+justify-content: center;
+align-content: center;
+  }
+.Gallary{
+  background-color: gray;
 }

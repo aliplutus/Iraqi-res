@@ -16,41 +16,42 @@ const unsplash = axios.create({
 
 
 function Title(ref, setOver, setLong, tooLong, setimages, handleChange, setGal) {
-      const [state, setstate] = useState({})
+      const [state, setstate] = useState({ width: '300px' })
       const [isover, setIsOver] = useState(false)
-      // const [loading, setLoading] = useState()
-      // console.log(loading)
+      const [styles, setStyles] = useState({
+            x: -200,
+            y: 166,
+            width: '344px',
+            fontSize: '20px'
+      })
+
       function handlKeyUP(e) {
             handleChange()
             unsplash.get("/search/photos", {
                   params: { query: ref.current.innerText },
                   // onDownloadProgress: function (progressEvent) { setLoading(progressEvent.timeStamp) }
             }).then(response => {
-
-                  setimages(response.data.results[0].urls.regular)
+                  setimages({ link: response.data.results[0].urls.regular, width: response.data.results[0].width, height: response.data.results[0].height })
                   setGal(response.data.results)
             })
             if (e.target.innerText.length > 69) {
                   setLong(true)
-                  setstate({ right: '0px', width: '500px', background: 'linear-gradient(90deg, rgba(202,51,39,1) 0%, rgba(11,15,28,1) 100%)', borderRadius: '10px', width: ' 100 %' })
+                  setstate({ padding: '5px', paddingRight: '0px', background: 'linear-gradient(90deg, rgba(202,51,39,1) 0%, rgba(11,15,28,1) 100%)', borderRadius: '4px', width: '500px' })
             }
             if (e.target.innerText.length < 69) {
                   setLong(false)
                   setstate({})
             }
       }
+
       return (
             <div
                   onMouseLeave={() => setOver(true)} onMouseOverCapture={() => setOver(false)}
                   className='title-containter'>
                   <Rnd
                         onMouseOver={e => setIsOver(true)} onMouseLeave={e => setIsOver(false)}
-                        style={{ padding: '3px', border: isover ? '2px solid #61dafb' : 'none', ...state }}
-                        default={{
-                              x: -177,
-                              y: 155,
-                              width: 320,
-                        }}
+                        style={{ border: isover ? '2px solid #61dafb' : 'none', ...state }}
+                        default={styles}
                   >
                         <Textfit
                               mode="single">

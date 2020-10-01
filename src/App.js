@@ -16,25 +16,23 @@ function App() {
   const ref = useRef()
   const image = useRef()
   const [Gal, setGal] = useState([])
-  const [images, setimages] = useState('https://arbordayblog.org/wp-content/uploads/2018/06/oak-tree-sunset-iStock-477164218.jpg')
-  const [styles, setStyles] = useState({})
+  const [images, setimages] = useState({ link: 'https://arbordayblog.org/wp-content/uploads/2018/06/oak-tree-sunset-iStock-477164218.jpg' })
+  const [styles, setStyles] = useState({ height: '500px' })
   const [isOver, setOver] = useState(false)
   const [tooLong, setLong] = useState(false)
   const [h, setH] = useState(true)
   function handleChange(e) {
-    // console.log(styles)
-    if (h) { setStyles({ height: `${image.current.width}px`, width: `${image.current.height}px` }) }
-    if (!h) { setStyles({ height: '500px' }) }
-    setH(image.current.height > image.current.width)
-    // console.log(h)
+    setH(images.height > images.width)
+    // images.height > images.width ? setStyles({ height: `${image.current.width}px`, width: `${image.current.height}px` })
+    //   : setStyles({ height: '500px' })
   }
   function handlDrag(e) {
-    if (h) setStyles({ left: e.pageX - image.current.width / 2 })
-    if (!h) setStyles(pre => {
+    if (h) setStyles(pre => {
+      return { ...pre, left: e.pageX - image.current.width / 2 }
+    })
+    else if (!h) setStyles(pre => {
       return { ...pre, top: e.pageY - image.current.height / 2 }
     })
-
-
   }
   return (
 
@@ -50,7 +48,7 @@ function App() {
           {Postion(handlDrag, isOver)}
           {!tooLong && <img className='field' src={TheTitleField} alt={TheTitleField} />}
           {tooLong && <img className='iraq-res-logo' src={posterLogo} alt={posterLogo} />}
-          <img ref={image} style={styles} className='image' src={images} alt='https://arbordayblog.org/wp-content/uploads/2018/06/oak-tree-sunset-iStock-477164218.jpg' />
+          <img ref={image} style={styles} className='image' src={images.link} alt='https://arbordayblog.org/wp-content/uploads/2018/06/oak-tree-sunset-iStock-477164218.jpg' />
         </div>
       </div>
       {Gallary(setimages, Gal, handleChange)}

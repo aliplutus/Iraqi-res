@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 function Gallary(setimages, Gal, handleChange) {
       function handlcick(image) {
             handleChange()
-            setimages(image.urls.regular)
+            setimages({ link: image.urls.regular, width: image.width, height: image.height })
       }
       return (
             <div >

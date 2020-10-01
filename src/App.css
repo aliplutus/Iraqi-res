@@ -75,11 +75,10 @@ cursor: auto;
 }
 .title-containter{
   position: relative;
-  /* top: 211px; */
-  /* right: 20px; */
-  /* width: 370px; */
+  
   z-index: 10;
-/* line-height: 122%; */
+  font-family: 'Cairo', sans-serif;
+  line-height: 200%;
 }
 .field{
   position: absolute;
@@ -87,7 +86,7 @@ cursor: auto;
   z-index: 3;
 }
 .image{
-  height: 500px;
+  /* height: 500px; */
   position: absolute;
   z-index: 2;
 }

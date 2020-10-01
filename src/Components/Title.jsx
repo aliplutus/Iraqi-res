@@ -27,7 +27,7 @@ function Title(ref, setOver, setLong, tooLong, setimages, setGal) {
 
       function handlKeyUP(e) {
             unsplash.get("/search/photos", {
-                  params: { query: ref.current.innerText },
+                  params: { query: ref.current.innerText.split(' ')[0] },
                   // onDownloadProgress: function (progressEvent) { setLoading(progressEvent.timeStamp) }
             }).then(response => {
                   setimages({ link: response.data.results[0].urls.regular, width: response.data.results[0].width, height: response.data.results[0].height })

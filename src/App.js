@@ -55,7 +55,7 @@ function App() {
         </div>
       </div>
       {Gallary(setimages, Gal)}
-      <input placeholder='add image url here.' />
+      <input onKeyUp={e => setimages({ link: e.target.value })} placeholder='add image url here.' />
       <Button
         onClick={() => exportComponentAsJPEG(box)}
         variant="contained"

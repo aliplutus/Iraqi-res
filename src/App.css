@@ -116,3 +116,13 @@ align-content: center;
 .Gallary{
   background-color: gray;
 }
+input{
+  color: white;
+  margin: 20px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #4051B6;
+  background-color: transparent;
+  padding: 2px;
+
+}

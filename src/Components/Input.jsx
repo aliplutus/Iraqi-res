@@ -1,16 +1,12 @@
 import React from 'react'
-import Gallary from './Gallary';
 import { exportComponentAsJPEG } from "react-component-export-image";
 import SaveIcon from '@material-ui/icons/Save';
 import Button from '@material-ui/core/Button';
-import { TextField } from '@material-ui/core'
 function Input(setimages, link, box) {
       return (
 
             <div className='work'>
-
-
-                  <TextField style={{ color: 'white', marginRight: '20px', marginLeft: '20px' }} onKeyUp={e => setimages({ link: e.target.value.startsWith('http') ? e.target.value : link })} placeholder='add image url here.' />
+                  <input onKeyUp={e => setimages({ link: e.target.value.startsWith('http') ? e.target.value : link })} placeholder='add image url here.' />
                   <Button
                         onClick={() => exportComponentAsJPEG(box)}
                         variant="contained"
@@ -19,7 +15,7 @@ function Input(setimages, link, box) {
                         startIcon={<SaveIcon />}
                   >
                         Export as JPEG
-    </Button>
+                        </Button>
             </div>
       )
 }

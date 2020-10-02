@@ -2,11 +2,24 @@ import React from 'react'
 import { exportComponentAsJPEG } from "react-component-export-image";
 import SaveIcon from '@material-ui/icons/Save';
 import Button from '@material-ui/core/Button';
-function Input(setimages, link, box) {
+import Slider from '@material-ui/core/Slider';
+
+function Input(setLineH, link, box) {
+
       return (
 
             <div className='work'>
-                  <input onKeyUp={e => setimages({ link: e.target.value.startsWith('http') ? e.target.value : link })} placeholder='add image url here.' />
+                  <div
+                        style={{ color: 'white', width: '300px' }}
+                  >
+                        text line height
+                  <Slider
+                              valueLabelDisplay="auto"
+                              onChange={(e, newValue) => setLineH(newValue)}
+                              type='range' />
+                  </div>
+
+                  <input placeholder='add image url here.' />
                   <Button
                         onClick={() => exportComponentAsJPEG(box)}
                         variant="contained"
@@ -16,6 +29,7 @@ function Input(setimages, link, box) {
                   >
                         Export as JPEG
                         </Button>
+
             </div>
       )
 }

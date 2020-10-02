@@ -17,6 +17,7 @@
     "react-resizable": "^1.11.0",
     "react-rnd": "^10.2.3",
     "react-scripts": "3.4.3",
+    "react-spring": "^8.0.27",
     "react-textfit": "^1.1.0",
     "use-fit-text": "^2.4.0"
   },
